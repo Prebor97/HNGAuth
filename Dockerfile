@@ -1,9 +1,12 @@
 # Use an official Maven image to build the application
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.8.4-openjdk-17 AS build
 
 # Set the working directory inside the container
 WORKDIR /app
 
+# Copy the pom.xml and download dependencies
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
 # Copy the source code into the container
 COPY src ./src
